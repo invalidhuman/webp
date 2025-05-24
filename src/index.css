@@ -1,0 +1,17 @@
+@import "tailwindcss";
+
+button {
+  margin-top: 1rem; /* mt-4 */
+  padding-left: 1rem; /* px-4 */
+  padding-right: 1rem;
+  padding-top: 0.5rem; /* py-2 */
+  padding-bottom: 0.5rem;
+  border-radius: 0.25rem; /* rounded */
+  background-color: #e5e7eb; /* bg-gray-200 (Tailwind 색상 코드) */
+  border-width: 2px; /* border-2 */
+  border-color: #0a0a0a; /* border-gray-950 */
+  color: #000000; /* text-black */
+  font-weight: 500; /* optional: medium */
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
