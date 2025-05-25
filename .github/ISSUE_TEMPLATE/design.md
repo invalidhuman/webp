@@ -1,10 +1,12 @@
 ---
-name: Issue template-2045
-about: Issue template 입니다.
-title: ''
+name: Design
+about: "\U0001F3A8 Design(페이지 경로 또는 컴포넌트): 디자인, 문장 수정"
+title: "[Design]"
 labels: ''
 assignees: ''
+
 ---
+
 ## 🎨 UI 변경 요청  
 [//]: # (UI 변경 요청 사항에 대해 작성합니다.)  
   
@@ -14,5 +16,4 @@ assignees: ''
   
 ## ✅ 확인 사항  
 - [ ] 변경된 UI 요소 확인  
-- [ ] 모바일과 데스크탑 버전에서 확인  
-  
+- [ ] 모바일과 데스크탑 버전에서 확인
