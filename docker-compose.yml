@@ -1,0 +1,13 @@
+services:
+  nginx:
+    build:
+      context: ./proxy
+      dockerfile: Dockerfile
+    container_name: nginx-proxy
+    ports:
+      - "8081:80"
+    networks:
+      - seunggorani-network
+networks:
+  seunggorani-network:
+    driver: bridge
