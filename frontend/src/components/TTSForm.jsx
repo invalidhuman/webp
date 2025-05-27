@@ -1,40 +1,49 @@
-import React, { useState, useRef } from "react";
-import axios from "axios";
+// components/TTSForm.jsx
+import React, { useState } from "react";
+import { useGenerateTTS } from "../hooks/useGenerateTTS";
 
-export default function TTSForm({ onResult }) {
+export default function TTSForm() {
   // 재생할 Audio 객체를 담을 ref
-  const audioRef = useRef(null);
+  //   const audioRef = useRef(null);
   // blob URL을 상태로 보관 (다운로드용)
-  const [audioUrl, setAudioUrl] = useState("");
+  //   const [audioUrl, setAudioUrl] = useState("");
 
   const [input, setInput] = useState("");
   const [voice, setVoice] = useState("coral");
   const [model, setModel] = useState("gpt-4o-mini-tts");
 
+  const { generate } = useGenerateTTS();
+
   const handleSubmit = async () => {
-    const { data } = await axios.post(
-      "/api/getTodos",
-      { input, voice, model },
-      {
-        responseType: "arraybuffer",
-      }
-    );
-    // Blob → URL
-    const blob = new Blob([data], { type: "audio/wav" });
-    const url = URL.createObjectURL(blob);
-    setAudioUrl(url);
-
-    // Audio 객체 생성(처음이거나, 기존이 있으면 해제)
-    if (audioRef.current) {
-      audioRef.current.pause();
-      URL.revokeObjectURL(audioRef.current.src);
-    }
-    audioRef.current = new Audio(url);
-
-    // 바로 재생
-    await audioRef.current.play();
-    onResult({ input, voice, model, blob, createdAt: Date.now() });
+    if (!input.trim()) return;
+    await generate({ input, voice, model });
+    setInput(""); // 제출 후 입력창 비우기
   };
+
+  //   const handleSubmit = async () => {
+  //     const { data } = await axios.post(
+  //       "/api/getTodos",
+  //       { input, voice, model },
+  //       {
+  //         responseType: "arraybuffer",
+  //       }
+  //     );
+  //     // Blob → URL
+  //     const blob = new Blob([data], { type: "audio/wav" });
+  //     const url = URL.createObjectURL(blob);
+  //     setAudioUrl(url);
+
+  //     // Audio 객체 생성(처음이거나, 기존이 있으면 해제)
+  //     if (audioRef.current) {
+  //       audioRef.current.pause();
+  //       URL.revokeObjectURL(audioRef.current.src);
+  //     }
+  //     audioRef.current = new Audio(url);
+
+  //     // 바로 재생
+  //     await audioRef.current.play();
+  //     onResult({ input, voice, model, blob, createdAt: Date.now() });
+  //   };
 
   return (
     <div className="p-4">
