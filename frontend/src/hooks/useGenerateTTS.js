@@ -4,8 +4,9 @@ import axios from "axios";
 import { useTTSStore } from "../stores/ttsStore";
 
 export const useGenerateTTS = () => {
+  // 재생할 Audio 객체를 담을 ref
   const audioRef = useRef(null);
-
+  // blob URL을 상태로 보관 (다운로드용)
   const [audioUrl, setAudioUrl] = useState("");
 
   const addItem = useTTSStore((s) => s.addItem);

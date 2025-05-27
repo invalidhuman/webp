@@ -25,19 +25,19 @@ export const useTTSStore = create((set, get) => ({
     saveHistory(get().history);
   },
 
-  /** 히스토리에서 선택만 변경 */
+  // 히스토리에서 클릭한 아이템을 전역 current로 설정
   setCurrent: (item) => set({ current: item }),
 
-  //   // 새 TTS 아이템 추가 & current로 설정
-  //   addItem: async (item) =>
-  //     set((state) => ({
-  //       history: [item, ...state.history],
-  //       current: item,
-  //     })),
-
-  //   // 기존 히스토리에서 선택만 변경
-  //   setCurrent: (item) =>
-  //     set(() => ({
-  //       current: item,
-  //     })),
+  // IndexedDB에서 삭제
+  deleteItem: async (item) => {
+    set((state) => {
+      const newHist = state.history.filter(
+        (h) => h.createdAt !== item.createdAt
+      );
+      const newCurrent =
+        state.current?.createdAt === item.createdAt ? null : state.current;
+      return { history: newHist, current: newCurrent };
+    });
+    saveHistory(get().history);
+  },
 }));

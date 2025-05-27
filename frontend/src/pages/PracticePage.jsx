@@ -7,6 +7,7 @@ export default function PracticePage() {
   const history = useTTSStore((s) => s.history);
   const current = useTTSStore((s) => s.current);
   const setCurrent = useTTSStore((s) => s.setCurrent);
+  const deleteItem = useTTSStore((s) => s.deleteItem);
   const audioRef = useRef(null);
 
   // Audio URL을 동적으로 Blob에서 생성하고 해제하며 재생
@@ -51,31 +52,6 @@ export default function PracticePage() {
       {/* 좌측: 폼 + 히스토리 리스트 */}
       <div className="w-1/3 border-r p-4 overflow-auto">
         <TTSForm />
-        <h2 className="mt-6 text-xl">히스토리</h2>
-        <ul className="mt-2 space-y-2">
-          {history.map((item, i) => (
-            <li
-              key={i}
-              className="p-2 rounded hover:bg-gray-100 flex justify-between items-center"
-            >
-              <button
-                className="flex-1 text-left"
-                onClick={() => setCurrent(item)}
-              >
-                <span className="block text-sm text-gray-600">
-                  {new Date(item.createdAt).toLocaleTimeString()}
-                </span>
-                <span className="truncate">"{item.text}"</span>
-              </button>
-              {/* <button
-                onClick={playCurrent}
-                className="ml-2 p-1 bg-blue-500 text-white rounded"
-              >
-                ▶️
-              </button> */}
-            </li>
-          ))}
-        </ul>
       </div>
 
       {/* 우측: 현재 선택 항목 및 컨트롤 */}
@@ -107,6 +83,37 @@ export default function PracticePage() {
         ) : (
           <p>Generate 버튼을 눌러 음성을 만들어 보세요.</p>
         )}
+        <ul className="mt-2 space-y-2">
+          <h2 className="mt-6 text-xl">히스토리</h2>
+          {history.map((item, i) => (
+            <li
+              key={i}
+              className="p-2 rounded hover:bg-gray-100 flex justify-between items-center"
+            >
+              <button
+                className="flex-1 text-left"
+                onClick={() => setCurrent(item)}
+              >
+                <span className="block text-sm text-gray-600">
+                  {new Date(item.createdAt).toLocaleTimeString()}
+                </span>
+                <span className="truncate">"{item.text}"</span>
+              </button>
+              {/* <button
+                onClick={playCurrent}
+                className="ml-2 p-1 bg-blue-500 text-white rounded"
+              >
+                ▶️
+              </button> */}
+              <button
+                onClick={() => deleteItem(item)}
+                className="p-1 bg-red-500 text-white rounded"
+              >
+                🗑️
+              </button>
+            </li>
+          ))}
+        </ul>
       </div>
     </div>
   );
