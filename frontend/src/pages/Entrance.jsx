@@ -77,25 +77,13 @@ export default function Entrance() {
 
   return (
     <div
-      // style={{ backgroundImage: `url(${LOLBackground})` }}
-      // className="
-      //   h-screen w-screen bg-center bg-cover
-      //   text-white text-center
-      //   font-gong-light
-      //   flex flex-col items-center justify-center
-      // "
       className="text-white text-center
       font-gong-light
-      flex flex-col items-center justify-center bg-black h-screeen w-screen"
+      flex flex-col items-center justify-center bg-black h-screen w-screen"
     >
       <h1 className="m-0 p-[60px] text-[80px] font-gonggothicmedium">
-        학생 여러분 반갑습니다
+        AI를 활용한 커스텀 TTS
       </h1>
-
-      <div className="text-[45px] font-gonggothiclight">
-        <p className="block m-[30px]">전적, 전략 유출 걱정 없는</p>
-        <p className="block m-[30px]">무료 전투 시뮬레이터</p>
-      </div>
       <div className="font-gonggothiclight">
         <button
           onClick={() => navigate("/practice")}
@@ -107,38 +95,6 @@ export default function Entrance() {
             "
         >
           시작하기
-        </button>
-
-        <button
-          onClick={audioHandler}
-          className="mt-4 px-4 py-2 bg-green-500 text-white rounded"
-        >
-          기본 오디오 출력
-        </button>
-        <button
-          onClick={fetchAndPlay}
-          className="px-4 py-2 bg-green-600 rounded"
-        >
-          TTS 불러오기 & 재생
-        </button>
-
-        <button onClick={handlePlay} className="px-4 py-2 bg-blue-600 rounded">
-          Play
-        </button>
-        <button
-          onClick={handlePause}
-          className="px-4 py-2 bg-yellow-600 rounded"
-        >
-          Pause
-        </button>
-        <button onClick={handleStop} className="px-4 py-2 bg-red-600 rounded">
-          Stop
-        </button>
-        <button
-          onClick={handleDownload}
-          className="px-4 py-2 bg-gray-600 rounded"
-        >
-          다운로드
         </button>
       </div>
     </div>

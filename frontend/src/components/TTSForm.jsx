@@ -8,7 +8,7 @@ export default function TTSForm() {
   const [model, setModel] = useState("gpt-4o-mini-tts");
   const [instructions, setInstructions] = useState("");
 
-  const { generate } = useGenerateTTS();
+  const { generate, playAudio } = useGenerateTTS();
 
   // 카테고리별 지시어 목록
   const categories = {
@@ -18,18 +18,23 @@ export default function TTSForm() {
     ],
     Tone: [
       "Sincere, empathetic, with genuine concern for the customer and understanding of the situation.",
+      "Positive, energetic, and empowering, creating an atmosphere of encouragement and achievement.",
     ],
     Pacing: [
       "Slower during the apology to allow for clarity and processing.",
       "Faster when offering solutions to signal action and resolution.",
     ],
-    Emotions: ["Calm reassurance, empathy, and gratitude."],
+    Emotions: [
+      "Calm reassurance, empathy, and gratitude.",
+      "Warm, exuberant, and patient to ensure the tourist feels understood and guided throughout the interaction.",
+    ],
     Pronunciation: [
       "Clear, precise: Ensures clarity, especially with key details.",
       'Focus on key words like "refund" and "patience."',
     ],
     Pauses: [
       "Before and after the apology to give space for processing the apology.",
+      "Brief, purposeful pauses after key instructions to allow time for the listener to process the information and follow along.",
     ],
   };
 
@@ -60,6 +65,7 @@ export default function TTSForm() {
     await generate({ input, voice, model, instructions });
     setInput("");
     setInstructions("");
+    playAudio(); // 생성 후 바로 재생
   };
 
   return (
@@ -79,11 +85,18 @@ export default function TTSForm() {
         <select value={model} onChange={(e) => setModel(e.target.value)}>
           <option value="gpt-4o-mini-tts">gpt-4o-mini-tts</option>
         </select>
+        <button
+          onClick={handleSubmit}
+          className="px-4 py-2 bg-indigo-600 text-white rounded flex-end"
+          disabled={!input.trim()}
+        >
+          Generate
+        </button>
       </div>
 
       <div>
-        <input
-          className="w-full border p-2"
+        <textarea
+          className="w-full h-32 border p-2 resize-y"
           value={instructions}
           onChange={(e) => setInstructions(e.target.value)}
           placeholder="Instructions: 원하는 지시어를 입력하세요"
@@ -130,14 +143,6 @@ export default function TTSForm() {
           </tbody>
         </table>
       </div>
-
-      <button
-        onClick={handleSubmit}
-        className="px-4 py-2 bg-indigo-600 text-white rounded"
-        disabled={!input.trim()}
-      >
-        Generate
-      </button>
     </div>
   );
 }
